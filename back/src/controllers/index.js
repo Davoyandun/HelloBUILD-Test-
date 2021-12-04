@@ -39,12 +39,14 @@ const login = async (req,res)=>{
         const index = users.map((e) => e.email).indexOf(email)
         if(users[index].password === password){
            return res.status(200).json({
+                exist:true,
                 isAccept : true,
                 data: users[index],
               });
             
         } else{
             return res.status(200).json({
+              exist: true,
             isAccept : false,
             data: [],
           });
@@ -53,6 +55,7 @@ const login = async (req,res)=>{
 
     }else{
       return  res.status(200).json({
+            exist: false,
             isAccept : false,
             data: [],
         })
@@ -60,6 +63,7 @@ const login = async (req,res)=>{
     }catch(error){
         console.log(error);
        return res.status(400).json({
+        exist:false,
         isAccept : false,
         data: [],
         });
