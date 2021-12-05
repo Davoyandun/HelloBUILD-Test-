@@ -54,7 +54,7 @@ export default function Login() {
         .then((el) => {
           return el.data;
         });
-// COntraseña Icorrecta
+// Contraseña Icorrecta
       if (session.exist && !session.isAccept) {
 
         Swal.fire({
@@ -68,8 +68,10 @@ export default function Login() {
 // Accede a la cuenta
       if (session.exist && session.isAccept) {
         cookies.set('name', session.data.name, {path: "/"});
-        cookies.set('lastName', session.data.lastname, {path: "/"});
+        cookies.set('lastname', session.data.lastname, {path: "/"});
         cookies.set('email', session.data.email, {path: "/"});
+        cookies.set('githubRepos', session.data.githubRepos, {path: "/"});
+        cookies.set('favoriteRepos', session.data.favoriteRepos, {path: "/"});
      
         
         handleClose();
