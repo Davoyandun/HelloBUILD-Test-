@@ -1,15 +1,14 @@
-import React, { useContext } from "react";
-import { Button } from "@mui/material";
+import React, { UseState } from "react";
 
-import s from '../Style/FavoriteCard.module.css'
+import { Button } from "@mui/material";
+import axios from "axios";
+import s from "../Style/FavoriteCard.module.css";
+const baseURL = "http://localhost:3001/hb/";
 
 export default function FavoriteCard({ name, language, visibility, id }) {
 
-
-  function Delete(e) {
-    e.preventDefault();
-
-
+  async function Delete(e) {
+    await axios.put(baseURL + "delete", { id: id });
   }
 
   return (
@@ -19,11 +18,7 @@ export default function FavoriteCard({ name, language, visibility, id }) {
       <p className={s.fuerza}> Lenguaje: {language}</p>
       <p className={s.fuerza}> visibility: {visibility}</p>
 
-      <Button
-      
-        color="error"
-        onClick={Delete}
-      >
+      <Button type="submit" color="error" onClick={Delete}>
         {" "}
         Delete{" "}
       </Button>
