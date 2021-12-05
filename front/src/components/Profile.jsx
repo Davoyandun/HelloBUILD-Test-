@@ -1,5 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Cookies from "universal-cookie";
+import MenuAppBar from "./MenuAppBar";
+import GithubIcon from "@material-ui/icons/GitHub";
+import Button from '@mui/material/Button';
+import style from "../Style/Profile.module.css";
 
 export default function Profile() {
   const cookies = new Cookies();
@@ -28,13 +32,45 @@ export default function Profile() {
       githuRepos: "",
       favoriteRepos: "",
     });
- 
+
     window.location.href = "./";
   }
   console.log(user);
   return (
     <div>
-      <button onClick={() => handlerCloseSession()}>Log Out</button>
+      <div>
+        <MenuAppBar text={"Welcome to Your Profile " + user.name}  text1='Profile' URL1 ='/profile'  text2='Favorites' URL2 ='/profile/favorites' text3='Repositories' URL3 ='/profile/repos' />
+      </div>
+
+      <div>
+        <header className={style.header}>
+          <div className={style.typography}>
+            <h1>
+              Welcome<span>to My Technical Test</span>
+            </h1>
+            <p>
+            To start we must open GitHub, if you do not want to do it you can close session
+            </p>
+            <div className={style.icons}>
+              <a
+                href={'https://github.com/login/oauth/authorize?client_id=078f53c07581fe29c44d&redirect_uri=http://localhost:3001/hb/reposUserGitHub'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={(style.icon, style.github)}
+              >
+                <GithubIcon />
+              </a>  
+              
+                 
+            </div> 
+            <br/>
+               {"   "}
+            <Button variant="outlined" color="error" onClick={() => handlerCloseSession()}>Log Out</Button>
+          </div>
+        </header>
+      </div>
+
+   
     </div>
   );
 }
