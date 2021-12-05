@@ -4,6 +4,8 @@ import MenuAppBar from "./MenuAppBar";
 import GithubIcon from "@material-ui/icons/GitHub";
 import Button from '@mui/material/Button';
 import style from "../Style/Profile.module.css";
+import axios from "axios";
+const baseURL = "http://localhost:3001/hb/";
 
 export default function Profile() {
   const cookies = new Cookies();
@@ -20,7 +22,7 @@ export default function Profile() {
   cookies.get("githubRepos");
   cookies.get("favoriteRepos");
 
-  function handlerCloseSession() {
+ async function handlerCloseSession() {
     cookies.remove("name", { path: "/" });
     cookies.remove("lastname", { path: "/" });
     cookies.remove("email", { path: "/" });
@@ -32,10 +34,11 @@ export default function Profile() {
       githuRepos: "",
       favoriteRepos: "",
     });
+    await axios.put(baseURL+"logOut")
 
     window.location.href = "./";
   }
-  console.log(user);
+
   return (
     <div>
       <div>

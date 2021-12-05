@@ -1,16 +1,15 @@
 import React, { useContext } from "react";
 import { Button } from "@mui/material";
-import { DataContext } from "../DataContext/dataProvider";
+
 import s from '../Style/FavoriteCard.module.css'
 
 export default function FavoriteCard({ name, language, visibility, id }) {
-  const value = useContext(DataContext);
-  const [favorite, setFavorite] = value.favorite;
+
 
   function Delete(e) {
     e.preventDefault();
-    let favoritesDelete = favorite.filter((favorite) => favorite.id !== id);
-    setFavorite([...favoritesDelete]);
+
+
   }
 
   return (

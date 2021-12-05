@@ -1,33 +1,28 @@
-import React, { useContext } from 'react';
-import { DataContext } from "../DataContext/dataProvider";
+import React from 'react';
+
 import s from "../Style/Card.module.css";
 import Button from "@mui/material/Button";
 import Swal from "sweetalert2";
+import axios from 'axios';
+const baseURL = 'http://localhost:3001/hb/'
 
 
 export default function Card({ id, language, name, url, visibility }) {
 
 
 
-  const value = useContext(DataContext)
-  const [favorite, setFavorite] = value.favorite
 
   async function Favorite(e) {
     e.preventDefault()
-    let repoExist = favorite.map( e => e.id).includes(id)
-    if(!repoExist){
-
-
       let repoObj = {
         id,
         name,
         language,
         visibility,
     }
-      setFavorite([...favorite, repoObj])
+   await axios.post(baseURL+"favorites", repoObj)
 
-    }
-    Swal.fire({
+    return Swal.fire({
       icon: "success",
       title: name,
       text: "added to favorites!!!",
@@ -36,7 +31,7 @@ export default function Card({ id, language, name, url, visibility }) {
     });
   }
   
-console.log(favorite, 'guardado')
+
 
   return (
     <div key={id } className={s.contain}>

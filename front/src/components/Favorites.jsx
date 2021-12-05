@@ -1,14 +1,27 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect } from "react";
 import MenuAppBar from "./MenuAppBar";
-import { DataContext } from "../DataContext/dataProvider";
+
 import FavoriteCard from "./FavoriteCard";
+import axios from "axios";
 import style from "../Style/Repos.module.css";
 
 export default function Favorites() {
-    const value = useContext(DataContext)
-    const [favorite, setFavorite] = value.favorite
+  const [repos, setRepos] = useState([]);
 
-console.log(favorite,'component')
+  useEffect(() => {
+    (async function () {
+      const UserRepos = await axios
+        .get("http://localhost:3001/hb/favorites")
+        .then((response) => {
+          return response.data;
+        });
+
+      setRepos([...UserRepos]);
+
+    })();
+  }, []);
+
+
   return (
     <div>
       <MenuAppBar
@@ -21,14 +34,14 @@ console.log(favorite,'component')
         URL3="/profile/repos"
       />
       <div className={style.main}>
-        {favorite &&
-          favorite?.map((el) => {
+      {repos &&
+          repos?.map((repo) => {
             return (
               <FavoriteCard
-                id={el.id}
-                name={el.name}
-                language={el.language}
-                visibility={el.visibility}
+                language={repo.language}
+                name={repo.name}
+                visibility={repo.visibility}
+                id={repo.id}
               />
             );
           })}
